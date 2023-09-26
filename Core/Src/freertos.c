@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "LedDriver.h"
+#include "LedProc.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -130,7 +131,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	LedTest();
+	LedSet();
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
@@ -149,6 +150,7 @@ void StartTask02(void const * argument)
   /* Infinite loop */
   for(;;)
   {
+	setLedMode();
     osDelay(1);
   }
   /* USER CODE END StartTask02 */
