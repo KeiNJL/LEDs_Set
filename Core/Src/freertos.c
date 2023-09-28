@@ -131,7 +131,7 @@ void StartDefaultTask(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	LedSet();
+	LedTest();
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
@@ -150,7 +150,7 @@ void StartTask02(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-	setLedMode();
+	ledProc();
     osDelay(1);
   }
   /* USER CODE END StartTask02 */
