@@ -10,71 +10,56 @@
 #define Led_Blink 2
 #define Led_Fast_Blink 3
 
-uint8_t LEDs_arr[5] = {0, 1, 0, 1, 0};
-uint8_t value = 0b00000;
+uint8_t LEDs_arr[5] = {0, 0, 0, 0, 0};
+uint8_t leds = 0b00000;
+uint8_t LedMask;
+static uint32_t current_time = 0;
+static uint32_t previous_time2 = 0;
+static uint32_t previous_time3 = 0;
+static uint8_t state2 = 0;
+static uint8_t state3 = 0;
 
-void Blink(void)
+uint8_t GetMode(uint8_t mode)
 {
-	uint32_t current_time = HAL_GetTick();
-	uint32_t previous_time = 0;
-
-		if ((current_time - previous_time) > 1000)
+	current_time = HAL_GetTick();
+	switch (mode)
+	{
+	case 0:
+		return 0;
+	case 1:
+		return 1;
+	case 2:
+		if ((current_time - previous_time2) > 1000)
 		{
-			HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-			previous_time = current_time;
-			if (value&0b00001 == 0b00000)
-			{
-				value = value | 1;
-			}
-			else
-			{
-				value = value | 0;
-			}
-			value << 1;
-		}
-}
-void FastBlink(void)
-{
-	uint32_t current_time = HAL_GetTick();
-	uint32_t previous_time = 0;
+			previous_time2 = current_time;
+			state2 = !state2;
 
-		if ((current_time - previous_time) > 500)
-		{
-			HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-			previous_time = current_time;
-			if (value&0b00001 == 0b00000)
-			{
-				value = value ^ 1;
-			}
-			else
-			{
-				value = value ^ 1;
-			}
-			value << 1;
 		}
+		return state2;
+
+	case 3:
+		if ((current_time - previous_time3) > 500)
+		{
+			previous_time3 = current_time;
+			state3 = !state3;
+
+		}
+		return state3;
+	}
+	return 0;
 }
 
 
 void ledProc (void)
 {
-	if (LEDs_arr[0] == 0)
+	uint8_t LedMask = 0;
+	for (uint8_t i = 0; i < 5; i++)
 	{
-		value << 1;
+		LedMask = GetMode(LEDs_arr[i]);
+		leds |= LedMask << i;
 	}
-	else if (LEDs_arr[0] == 1)
-	{
-		value = value | 1;
-		value << 1;
-	}
-	else if (LEDs_arr[0] == 2)
-	{
-		Blink();
-	}
-	else if (LEDs_arr[0] == 3)
-	{
-		FastBlink();
-	}
+	LedSet(leds);
 }
-
+//
 
 
