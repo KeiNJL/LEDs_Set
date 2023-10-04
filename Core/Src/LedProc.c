@@ -10,9 +10,8 @@
 #define Led_Blink 2
 #define Led_Fast_Blink 3
 
-uint8_t LEDs_arr[5] = {0, 0, 0, 0, 0};
+uint8_t LEDs_arr[5] = {1, 3, 2, 0, 2};
 uint8_t leds = 0b00000;
-uint8_t LedMask;
 static uint32_t current_time = 0;
 static uint32_t previous_time2 = 0;
 static uint32_t previous_time3 = 0;
@@ -31,9 +30,8 @@ uint8_t GetMode(uint8_t mode)
 	case 2:
 		if ((current_time - previous_time2) > 1000)
 		{
-			previous_time2 = current_time;
 			state2 = !state2;
-
+			previous_time2 = current_time;
 		}
 		return state2;
 
@@ -53,6 +51,7 @@ uint8_t GetMode(uint8_t mode)
 void ledProc (void)
 {
 	uint8_t LedMask = 0;
+	leds = 0;
 	for (uint8_t i = 0; i < 5; i++)
 	{
 		LedMask = GetMode(LEDs_arr[i]);
@@ -60,6 +59,6 @@ void ledProc (void)
 	}
 	LedSet(leds);
 }
-//
+
 
 
