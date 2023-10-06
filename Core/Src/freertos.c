@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "LedDriver.h"
 #include "LedProc.h"
+#include "Parcer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -129,6 +130,7 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
   for(;;)
   {
+	test();
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */
