@@ -9,6 +9,19 @@
 
 uint8_t test (void)
 {
-	uint8_t data[] = "Hello World \n";
-	HAL_UART_Transmit(&huart1, data, sizeof (data), 10);
+	char r = 0;
+	uint8_t data[] = {"Hello World! "};
+	HAL_UART_Transmit(&huart1, data, sizeof(data), 100);
+
+	for (uint8_t i = 0; i<sizeof(data); i++)
+	{
+		if (data[i] == r)
+		{
+			HAL_UART_Receive_IT(&huart1, &data, sizeof(data));
+		}
+	}
 }
+
+
+//ловить нулевой бит + прерывания*
+
