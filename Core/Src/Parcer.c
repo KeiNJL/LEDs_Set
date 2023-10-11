@@ -11,13 +11,12 @@ uint8_t test (void)
 {
 	char r = 0;
 	uint8_t data[] = {"Hello World! "};
-	HAL_UART_Transmit(&huart1, data, sizeof(data), 100);
-
+	uint8_t value[] = {};
 	for (uint8_t i = 0; i<sizeof(data); i++)
 	{
 		if (data[i] == r)
 		{
-			HAL_UART_Receive_IT(&huart1, &data, sizeof(data));
+			HAL_UART_Receive(&huart1, &value, sizeof(value), 100);
 		}
 	}
 }
