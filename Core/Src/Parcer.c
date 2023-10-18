@@ -9,18 +9,22 @@
 
 uint8_t test (void)
 {
-	char r = 0;
-	uint8_t data[] = {"Hello World! "};
-	uint8_t value[] = {};
-	for (uint8_t i = 0; i<sizeof(data); i++)
+	char end = 0;
+	uint8_t arr[128] = {};
+	char value[128]= {};
+
+	for (uint8_t counter = 0; counter < 100; counter++)
 	{
-		if (data[i] == r)
+		HAL_UART_Receive_IT(&huart1, value, sizeof(value));
+		arr[counter] = value[counter];
+
+		if (value[counter] == end)
 		{
-			HAL_UART_Receive(&huart1, &value, sizeof(value), 100);
+			arr[counter] = value[counter];
+			counter = 0;
+			HAL_UART_RxCpltCallback(&huart1);
 		}
 	}
 }
 
-
-//ловить нулевой бит + прерывания*
 
