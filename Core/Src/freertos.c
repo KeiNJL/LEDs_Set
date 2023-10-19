@@ -22,6 +22,8 @@
 #include "task.h"
 #include "main.h"
 #include "cmsis_os.h"
+#include "stm32f1xx_hal_uart.h"
+#include "usart.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -63,6 +65,11 @@ const osThreadAttr_t myTask02_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for myBinarySem01 */
+osSemaphoreId_t myBinarySem01Handle;
+const osSemaphoreAttr_t myBinarySem01_attributes = {
+  .name = "myBinarySem01"
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -87,6 +94,10 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
+
+  /* Create the semaphores(s) */
+  /* creation of myBinarySem01 */
+  myBinarySem01Handle = osSemaphoreNew(1, 1, &myBinarySem01_attributes);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
@@ -130,7 +141,7 @@ void StartDefaultTask(void *argument)
   /* Infinite loop */
 	for(;;)
   {
-	test();
+	test(&huart1);
     osDelay(1);
   }
   /* USER CODE END StartDefaultTask */

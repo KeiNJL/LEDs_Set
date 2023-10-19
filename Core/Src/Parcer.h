@@ -7,7 +7,7 @@
 
 #ifndef SRC_PARCER_H_
 #define SRC_PARCER_H_
-void test (void);
-
+//void test (void);
+uint8_t test (UART_HandleTypeDef *huart);
 
 #endif /* SRC_PARCER_H_ */
