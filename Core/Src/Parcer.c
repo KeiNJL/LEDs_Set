@@ -10,7 +10,7 @@
 char end = '\0';
 char string[10];
 uint8_t arr[10];
-char symbol[10];
+char symbol;
 uint8_t counter = 0;
 
 uint8_t test (UART_HandleTypeDef *huart)
@@ -26,7 +26,7 @@ uint8_t test (UART_HandleTypeDef *huart)
 	    }
 		else
 		{
-	        string[counter] = symbol[counter];
+	        string[counter] = symbol;
 	        counter++;
 	    }
 	}
