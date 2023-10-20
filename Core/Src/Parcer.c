@@ -39,25 +39,3 @@ void Proc(char *string)
     	arr[i] = string[i];
     }
 }
-
-
-
-
-
-//	char end = 0;
-//	uint8_t arr[128] = {};
-//	char value[128]= {};
-//
-//	for (uint8_t counter = 0; counter < 100; counter++)
-//	{
-//		HAL_UART_Receive_IT(&huart1, value, sizeof(value));
-//		arr[counter] = value[counter];
-//
-//		if (value[counter] == end)
-//		{
-//			arr[counter] = value[counter];
-//			counter = 0;
-//			HAL_UART_RxCpltCallback(&huart1);
-//		}
-//	}
-
